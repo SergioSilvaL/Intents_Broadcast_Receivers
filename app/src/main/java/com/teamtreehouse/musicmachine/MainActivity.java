@@ -19,9 +19,10 @@ import android.widget.Toast;
 import com.teamtreehouse.musicmachine.adapters.PlaylistAdapter;
 import com.teamtreehouse.musicmachine.models.Song;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    public static final String EXTRA_TITLE = "EXTRA_TITLE";
     public static final String KEY_SONG = "song";
 
     private boolean mBound = false;
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private void testIntents() {
         // Explicit intent
         Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(EXTRA_TITLE, "Gradle, Gradle, Gradle");
         startActivity(intent);
     }
 
