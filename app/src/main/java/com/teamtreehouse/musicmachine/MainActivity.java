@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
@@ -104,9 +105,15 @@ public class  MainActivity extends AppCompatActivity {
 
     private void testIntents() {
         // Explicit intent
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(EXTRA_TITLE, "Gradle, Gradle, Gradle");
-        startActivityForResult(intent, REQUEST_FAVORITE);
+//        Intent intent = new Intent(this, DetailActivity.class);
+//        intent.putExtra(EXTRA_TITLE, "Gradle, Gradle, Gradle");
+//        startActivityForResult(intent, REQUEST_FAVORITE);
+
+        // Implicit Intent
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri geoLocation = Uri.parse("geo:0,0?q=29.094898, -110.955032(Tecnologias Intech)");
+        intent.setData(geoLocation);
+        startActivity(intent);
     }
 
     private void downloadSongs() {
