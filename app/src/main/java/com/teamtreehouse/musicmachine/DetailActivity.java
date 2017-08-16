@@ -18,6 +18,8 @@ public class DetailActivity extends AppCompatActivity {
     private Song mSong;
     private RelativeLayout mRootLayout;
 
+    public static final String SHARE_SONG = "com.teamtreehouse.intent.action.SHARE_SONG";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (intent.getAction().equals(intent.ACTION_SEND)){
+        if (Intent.ACTION_SEND.equals(intent.getAction())){
             handleSendIntent(intent);
         }else {
 //        if (intent.getStringExtra(MainActivity.EXTRA_TITLE) != null){
@@ -38,9 +40,9 @@ public class DetailActivity extends AppCompatActivity {
 //        }
 
             if (intent.getParcelableExtra(MainActivity.EXTRA_SONG) != null) {
-                Song song = intent.getParcelableExtra(MainActivity.EXTRA_SONG);
-                titleLabel.setText(song.getTitle());
-                favoriteCheckbox.setChecked(song.isFavorite());
+                mSong = intent.getParcelableExtra(MainActivity.EXTRA_SONG);
+                titleLabel.setText(mSong.getTitle());
+                favoriteCheckbox.setChecked(mSong.isFavorite());
             }
 
             final int listPosition = intent.getIntExtra(MainActivity.EXTRA_LIST_POSITION, 0);
@@ -76,6 +78,15 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
+
+        if (itemId == R.id.action_share){
+            if (mSong != null){
+                Intent costumIntent = new Intent(SHARE_SONG);
+                costumIntent.putExtra(MainActivity.EXTRA_SONG, mSong);
+                Intent chooser = Intent.createChooser(costumIntent, "Share song");
+                startActivity(chooser);
+            }
+        }
 
         return super.onOptionsItemSelected(item);
     }
